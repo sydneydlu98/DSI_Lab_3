@@ -11,6 +11,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Lab #3: Monty Hall Simulation
 
+Collaborated with Peizheng Chen and Ying Li.
+
 For this lab, we will be simulating the Monty Hall Problem. The Monty Hall Problem illustrates a simple setting where intuition is often misleading.
 
 The situation is based on the TV game show “Let’s Make a Deal,” where there are three closed doors - one door has a new car behind it, and the other two doors have goats behind them. First, Monty (the host) puts a car behind one of three doors. Then the player chooses a door. Next, without moving the car, Monty opens an unselected door, revealing a goat. The player may then switch to the other non-selected door.
@@ -30,14 +32,21 @@ Here are some tips:
 + Use an if statement to switch guesses of the door if switch = TRUE
 + return a logical (TRUE/FALSE) indicating if the game was won or not
 
-```{r}
+```{r, message=FALSE}
 ## load all the packages
 library(dplyr)
+library(tidyverse)
+library(base)
+library(rlang)
+library(purrr)
+library(knitr)
+library(kableExtra)
 ```
 
 ```{r}
+# set a seed so my work is reproducible
 set.seed(2578)
-monty <- function(switch) {
+monty_hall <- function(switch) {
   # Assign the prize
   prize <- sample(1:3,1)
   # Pick a door
@@ -55,7 +64,7 @@ monty <- function(switch) {
   return(choice == prize)
 }
 
-monty(TRUE)
+monty_hall(TRUE)
 ```
 
 2. Next write a function that performs the simulation multiple times. Have an argument for the number of times to run the simulation (n) and the strategy (switch). Check out the replicate() function which may be useful.
@@ -65,6 +74,34 @@ Turn in an html of your R markdown document with the functions and a test of the
 Very important: make sure you set a seed so your work is reproducible!
 
 ```{r}
-
+# create a function to run the simulation (n) and the strategy (switch)
+simulation <- function(n, switch){
+  # make sure n is numeric
+  if(!is.numeric(n)){
+    stop("Argument n should be numeric.")
+  }
+  # simulate the previous monty_hall() function with n
+  replicate(n, monty_hall(switch))
+}
 ```
+
+```{r}
+# create a data frame for the test
+# with 1000 plays with/without using the switching strategy
+runs <- data.frame(n=numeric(), switch=numeric(), no_switch=numeric())
+
+# do the calculation for the test
+# put them into a data table so it is easy to read
+runs <- runs %>%  
+  add_row(n = 1000, 
+          switch = (sum(simulation(1000, TRUE)))/n, 
+          no_switch = (sum(simulation(1000, FALSE)))/n)
+
+# make the test result aesthetically pleasing
+runs %>%
+  kbl(caption = "a test of the functions") %>%
+  kable_paper("striped", full_width = F)
+```
+
+In conclusion, the test has been performed to show the function in question 2 is coded correctly.
 
