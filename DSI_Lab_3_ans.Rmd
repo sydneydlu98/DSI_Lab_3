@@ -1,0 +1,70 @@
+---
+title: "DSI_Lab_3_Monty_Hall_Simulation"
+author: "Dingxin Lu"
+date: "10/27/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Lab #3: Monty Hall Simulation
+
+For this lab, we will be simulating the Monty Hall Problem. The Monty Hall Problem illustrates a simple setting where intuition is often misleading.
+
+The situation is based on the TV game show “Let’s Make a Deal,” where there are three closed doors - one door has a new car behind it, and the other two doors have goats behind them. First, Monty (the host) puts a car behind one of three doors. Then the player chooses a door. Next, without moving the car, Monty opens an unselected door, revealing a goat. The player may then switch to the other non-selected door.
+
+To maximize their probability of winning the car, should the player switch?
+
+Many people see that there are now two doors to choose between and feel that since Monty can always open a goat door, there is still equal probability to win a car for each door. If that were the case, the player might as well keep the original door. A correct intuitive route is to observe that Monty’s door is fixed. The probability that the player has the right door is 1/3 before Monty opens the goat door, and remains 1/3 after that door is open. This means that the probability that the car is behind one of the doors is 2/3, both before and after Monty opens the goat door. After Monty opens the goat door, the player gets a 2/3 chance of winning by switching to the remaining door. If the player wants to win, they should switch doors.
+
+One way to prove to yourself that switching improves your chances of winning is through simulation. Write a function to perform the Monty Hall simulation multiple times to calculate the percent of times the game was won.
+
+Here are some tips:
+
+1. First write a function that does one play of the Monty Hall simulation. Have an argument switch which tells if the contestant uses the strategy of switching the door (switch = TRUE) or (switch = FALSE).
+
++ First use sample() to select the door that the contestant picks and the door that the prize is under
++ Next use an if else statement to show what door is revealed if (1) the contestant guessed the correct door or (2) if the contestant did not guess the correct door
++ Use an if statement to switch guesses of the door if switch = TRUE
++ return a logical (TRUE/FALSE) indicating if the game was won or not
+
+```{r}
+## load all the packages
+library(dplyr)
+```
+
+```{r}
+set.seed(2578)
+monty <- function(switch) {
+  # Assign the prize
+  prize <- sample(1:3,1)
+  # Pick a door
+  choice <- sample(1:3,1)
+  # show what door is revealed if:
+  # (1) the contestant guessed the correct door or 
+  # (2) if the contestant did not guess the correct door
+  reveal <- ifelse(prize == choice, sample(c(1:3)[-choice], 1),
+                                           c(1:3)[-c(choice, prize)])
+  # switch guesses of the door if switch = TRUE
+  if(switch == TRUE){
+    choice <- c(1:3)[-c(choice, reveal)]
+  }
+  # return a logical (TRUE/FALSE) indicating if the game was won or not
+  return(choice == prize)
+}
+
+monty(TRUE)
+```
+
+2. Next write a function that performs the simulation multiple times. Have an argument for the number of times to run the simulation (n) and the strategy (switch). Check out the replicate() function which may be useful.
+
+Turn in an html of your R markdown document with the functions and a test of the functions with 1000 plays with/without using the switching strategy. Don’t forget to put your GitHub repo at the top of your R markdown!
+
+Very important: make sure you set a seed so your work is reproducible!
+
+```{r}
+
+```
+
