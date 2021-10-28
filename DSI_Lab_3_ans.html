@@ -175,7 +175,8 @@ pre code {
 
 
 <p>Lab #3: Monty Hall Simulation</p>
-<p>Collaborated with Peizheng Chen and Ying Li.</p>
+<p>[my Github Link] <a href="https://github.com/sydneydlu98/DSI_Lab_3" class="uri">https://github.com/sydneydlu98/DSI_Lab_3</a></p>
+<p><strong>Collaborated with Peizheng Chen and Ying Li.</strong></p>
 <p>For this lab, we will be simulating the Monty Hall Problem. The Monty Hall Problem illustrates a simple setting where intuition is often misleading.</p>
 <p>The situation is based on the TV game show “Let’s Make a Deal,” where there are three closed doors - one door has a new car behind it, and the other two doors have goats behind them. First, Monty (the host) puts a car behind one of three doors. Then the player chooses a door. Next, without moving the car, Monty opens an unselected door, revealing a goat. The player may then switch to the other non-selected door.</p>
 <p>To maximize their probability of winning the car, should the player switch?</p>
@@ -226,7 +227,8 @@ monty_hall(TRUE)</code></pre>
 </ol>
 <p>Turn in an html of your R markdown document with the functions and a test of the functions with 1000 plays with/without using the switching strategy. Don’t forget to put your GitHub repo at the top of your R markdown!</p>
 <p>Very important: make sure you set a seed so your work is reproducible!</p>
-<pre class="r"><code># create a function to run the simulation (n) and the strategy (switch)
+<pre class="r"><code>set.seed(2578)
+# create a function to run the simulation (n) and the strategy (switch)
 simulation &lt;- function(n, switch){
   # make sure n is numeric
   if(!is.numeric(n)){
@@ -235,7 +237,8 @@ simulation &lt;- function(n, switch){
   # simulate the previous monty_hall() function with n
   replicate(n, monty_hall(switch))
 }</code></pre>
-<pre class="r"><code># create a data frame for the test
+<pre class="r"><code>set.seed(2578)
+# create a data frame for the test
 # with 1000 plays with/without using the switching strategy
 runs &lt;- data.frame(n=numeric(), switch=numeric(), no_switch=numeric())
 
@@ -276,7 +279,7 @@ no_switch
 0.655
 </td>
 <td style="text-align:right;">
-0.345
+0.344
 </td>
 </tr>
 </tbody>

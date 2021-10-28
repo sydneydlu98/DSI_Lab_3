@@ -11,7 +11,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Lab #3: Monty Hall Simulation
 
-Collaborated with Peizheng Chen and Ying Li.
+[my Github Link] https://github.com/sydneydlu98/DSI_Lab_3 
+
+**Collaborated with Peizheng Chen and Ying Li.**
 
 For this lab, we will be simulating the Monty Hall Problem. The Monty Hall Problem illustrates a simple setting where intuition is often misleading.
 
@@ -74,6 +76,7 @@ Turn in an html of your R markdown document with the functions and a test of the
 Very important: make sure you set a seed so your work is reproducible!
 
 ```{r}
+set.seed(2578)
 # create a function to run the simulation (n) and the strategy (switch)
 simulation <- function(n, switch){
   # make sure n is numeric
@@ -86,6 +89,7 @@ simulation <- function(n, switch){
 ```
 
 ```{r}
+set.seed(2578)
 # create a data frame for the test
 # with 1000 plays with/without using the switching strategy
 runs <- data.frame(n=numeric(), switch=numeric(), no_switch=numeric())
